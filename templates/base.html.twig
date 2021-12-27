@@ -23,14 +23,8 @@
     <body>
         {% include 'components/_nav.html.twig' %} 
 
-        <main class="container-fluid">
-            <div class="row">
-                <div class="col">
-                {% block content %}
-                {% endblock %}
-                <div>
-            <div>
-        <main>
+        {% block content %}
+        {% endblock %}
 
         {% include 'components/_footer.html.twig' %} 
 
