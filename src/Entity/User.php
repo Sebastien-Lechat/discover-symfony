@@ -41,6 +41,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $lastname;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstname;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
@@ -152,6 +157,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }
