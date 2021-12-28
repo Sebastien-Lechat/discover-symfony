@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ArticleController extends AbstractController
 {
@@ -38,14 +39,35 @@ class ArticleController extends AbstractController
             # Récupération du fichier du formulaire
             $file = $form->get('photo')->getData();
 
+
             # Définition de l'alias grâce à slugger, basé sur le titre. Slugger supprime les espaces et les caractères indésirables.
             $article->setAlias($slugger->slug($article->getTitle()));
+
+            if ($file) {
+
+                $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $extension = '.' . $file->guessExtension();
+
+                $safeFilename = $slugger->slug($originalFileName);
+
+                $newFilename = $safeFilename . '-' . uniqid() . $extension;
+
+                try {
+                    $file->move('uploads_dir', $newFilename);
+                    $article->setPhoto($newFilename);
+                } catch (FileException $exception) {
+                    dd($exception);
+                }
+            }
 
             # Création du conteneur et insertion en base de données grâce à Doctrine et l'outil entityManager.
             $entityManager->persist($article);
 
             # On vide l'entity manager des données précédement contenues.
             $entityManager->flush();
+
+            $this->addFlash('success', 'Vous avez créé un nouvel article !');
 
             # Redirection sur la page d'accueil
             return $this->redirectToRoute('default_home');

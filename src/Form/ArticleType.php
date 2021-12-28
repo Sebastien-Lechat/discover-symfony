@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ArticleType extends AbstractType
 {
@@ -47,6 +48,12 @@ class ArticleType extends AbstractType
             ])
             ->add('photo', FileType::class, [
                 'label' => 'Photo de l\'article',
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Les types de fichiers autorisés sont : .jpeg et .png'
+                    ]),
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer l\'article',
