@@ -28,7 +28,7 @@ class RegisterType extends AbstractType
                         'message' => 'Veuillez saisir votre nom.'
                     ]),
                     new Length([
-                        'min' => 3,
+                        'min' => 2,
                         'max' => 20,
                         'minMessage' => 'Votre nom est trop court, il doit comporter un minimum de {{ limit }} caractères.',
                     ]),
@@ -44,7 +44,7 @@ class RegisterType extends AbstractType
                         'message' => 'Veuillez saisir votre prénom.'
                     ]),
                     new Length([
-                        'min' => 3,
+                        'min' => 2,
                         'max' => 20,
                         'minMessage' => 'Votre prénom est trop court, il doit comporter un minimum de {{ limit }} caractères.',
                     ]),
@@ -70,6 +70,9 @@ class RegisterType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
+                'attr' => [
+                    'class' => 'd-block col-3 mx-auto btn btn-warning'
+                ],
             ]);
     }
 
