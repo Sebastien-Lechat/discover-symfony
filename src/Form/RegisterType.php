@@ -35,7 +35,7 @@ class RegisterType extends AbstractType
                 ],
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Prénom',
                 'attr' => [
                     'placeholder' => 'Entrez votre prénom'
                 ],
@@ -56,6 +56,11 @@ class RegisterType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Entrez votre e-mail'
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre e-mail.'
+                    ])
+                ],
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
@@ -71,7 +76,7 @@ class RegisterType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [
-                    'class' => 'd-block col-3 mx-auto btn btn-warning'
+                    'class' => 'd-block col-3 mx-auto btn btn-primary'
                 ],
             ]);
     }
