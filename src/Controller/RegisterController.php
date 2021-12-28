@@ -36,10 +36,10 @@ class RegisterController extends AbstractController
             $user = $form->getData();
 
             # On set la valeur de createdAt
-            $user->setCreatedAt(new DateTime());
+            // $user->setCreatedAt(new DateTime());
 
             # On set la valeur du role
-            $user->setRoles(['ROLE_USER']);
+            // $user->setRoles(['ROLE_USER']);
 
             # On set la valeur du password en hash pour qu'il ne soit pas affiché en clair dans la base de données
             $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));

@@ -60,6 +60,7 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'allow_file_upload' => true,
         ]);
     }
 }

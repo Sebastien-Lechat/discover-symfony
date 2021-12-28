@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,11 +15,11 @@ class ArticleController extends AbstractController
 {
 
     /**
-     * @Route("/admin/creer-un-article.html", name="create_article", methods={"GET|POST"})
+     * @Route("/admin/creer-un-article", name="create_article", methods={"GET|POST"})
      * @param Request $request
      * @return Response
      */
-    public function createArticle(Request $request, SluggerInterface $slugger): Response
+    public function createArticle(Request $request, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
     {
         # Nouvelle instance de la classe article (entity)
         $article = new Article();
@@ -30,7 +31,24 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($article);
+
+            # Récupération des données du formulaire
+            $article = $form->getData();
+
+            # Récupération du fichier du formulaire
+            $file = $form->get('photo')->getData();
+
+            # Définition de l'alias grâce à slugger, basé sur le titre. Slugger supprime les espaces et les caractères indésirables.
+            $article->setAlias($slugger->slug($article->getTitle()));
+
+            # Création du conteneur et insertion en base de données grâce à Doctrine et l'outil entityManager.
+            $entityManager->persist($article);
+
+            # On vide l'entity manager des données précédement contenues.
+            $entityManager->flush();
+
+            # Redirection sur la page d'accueil
+            return $this->redirectToRoute('default_home');
         }
 
         return $this->render('article/form_article.html.twig', [
