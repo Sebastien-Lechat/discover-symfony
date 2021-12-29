@@ -73,6 +73,10 @@
 								{{ article.updatedAt | date('d/m/Y') }}
 							</td>
 							<td class="text-center">
+								<a href="{{ path('update_article', { 'id': article.id }) }}" class="btn btn-primary">
+									<i class="fa fa-edit"></i>
+								</a>
+								&nbsp;
 								<a href="#" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer l'article ?')">
 									<i class="fa fa-trash"></i>
 								</a>
@@ -102,7 +106,7 @@
 										{{ user.id }}
 									</td>
 									<td class="text-center">
-										{{ user.roles[0] }}
+										{{ user.roles | first }}
 									</td>
 									<td class="text-center">
 										{{ user.lastname }}
@@ -149,6 +153,10 @@
 										{{ category.name }}
 									</td>
 									<td class="text-center">
+										<a href="#" class="btn btn-primary">
+											<i class="fa fa-edit"></i>
+										</a>
+										&nbsp;
 										<a href="#" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer la catégorie ?')">
 											<i class="fa fa-trash"></i>
 										</a>

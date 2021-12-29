@@ -16,7 +16,7 @@ class ArticleController extends AbstractController
 {
 
     /**
-     * @Route("/admin/creer-un-article", name="create_article", methods={"GET|POST"})
+     * @Route("/admin/create/article", name="create_article", methods={"GET|POST"})
      * @param Request $request
      * @return Response
      */
@@ -77,4 +77,16 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/admin/update/article/{id}", name="update_article", methods={"GET|POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function updateArticle(Article $article, Request $request): Response
+    {
+
+        return $this->render('article/update_article.html.twig');
+    }
+
 }
