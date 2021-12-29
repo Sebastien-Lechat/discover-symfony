@@ -86,11 +86,11 @@ class ArticleController extends AbstractController
      */
     public function updateArticle(Article $article, SluggerInterface $slugger, EntityManagerInterface $entityManager, Request $request): Response
     {   
-        $photo = new File($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $article->getPhoto());
-
         $form = $this->createForm(ArticleType::class, $article, [
-            'photo' => $photo,
+            'photo' => $this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $article->getPhoto(),
         ]);
+
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -134,6 +134,18 @@ class ArticleController extends AbstractController
 
         return $this->render('article/form_article.html.twig', [
             'form' => $form->createView(),
+            'article' => $article,
+        ]);
+    }
+
+    /**
+     * @Route("/show/article/{id}", name="show_article", methods={"GET"})
+     * @param Article $article
+     * @return Response
+     */
+    public function showArticle(Article $article): Response
+    {
+        return $this->render('article/show_article.html.twig', [
             'article' => $article,
         ]);
     }
