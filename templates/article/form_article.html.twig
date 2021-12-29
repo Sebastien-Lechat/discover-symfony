@@ -4,7 +4,12 @@
 	<div class="container">
 		<div class="row my-4 d-flex align-middle justify-content-center">
 			<div class="col-12">
-				<h3 class="text-center">Création d'un article</h3>
+				{% if article is defined %}
+					<h3 class="text-center">Modification d'un article</h3>
+				{% else %}
+					<h3 class="text-center">Création d'un article</h3>
+				{% endif %}
+
 			</div>
 		</div>
 		<div class="row my-4 d-flex align-middle justify-content-center">
@@ -16,6 +21,12 @@
 				{{ form_row(form.content) }}
 				{{ form_row(form.category) }}
 				{{ form_row(form.photo) }}
+
+				{% if article is defined %}
+					<button class="d-block col-3 mx-auto btn btn-primary" type="submit">Modifier l'article</button>
+				{% else %}
+					<button class="d-block col-3 mx-auto btn btn-primary" type="submit">Créer l'article</button>
+				{% endif %}
 
 				{{ form_end(form) }}
 			</div>
