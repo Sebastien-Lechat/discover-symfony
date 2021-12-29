@@ -34,7 +34,10 @@
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item text-center text-muted">Créer le :
-							{{ article.createdAt | date('d/m/y') }}</li>
+							{{ article.createdAt | date('d/m/y') }}. Par :
+							{{ article.author.lastname }}
+							{{ article.author.firstname }}.
+						</li>
 					</ul>
 					<img class="img-custom" src="{{ asset('uploads_dir/' ~ article.photo) }}" alt="{{ article.title }}">
 					<div class="card-body">

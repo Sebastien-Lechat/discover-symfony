@@ -35,6 +35,8 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $article->setAuthor($this->getUser());
+
             # Récupération des données du formulaire
             $article = $form->getData();
 
