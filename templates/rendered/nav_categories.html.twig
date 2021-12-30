@@ -5,7 +5,7 @@
 	<ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
 		{% for category in categories %}
 			<li>
-				<a class="dropdown-item" href="#">{{ category.name }}</a>
+				<a class="dropdown-item" href="{{ path('show_article_from_category', { 'alias': category.alias }) }}">{{ category.name }}</a>
 			</li>
 		{% endfor %}
 	</ul>
