@@ -158,7 +158,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/show/article/{category}", name="show_article_from_category", methods={"GET"})
+     * @Route("/show/{alias}/articles/", name="show_article_from_category", methods={"GET"})
      * @param Article $article
      * @return Response
      */
@@ -166,7 +166,8 @@ class ArticleController extends AbstractController
     {
         $articles = $entityManager->getRepository(Article::class)->findBy([ 'category' => $category->getId() ]);
 
-        return $this->render('article/show_article.html.twig', [
+        return $this->render('article/show_articles_from_category.html.twig', [
+            'category' => $category,
             'articles' => $articles,
         ]);
     }
