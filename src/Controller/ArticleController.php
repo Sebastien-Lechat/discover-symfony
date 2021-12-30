@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentary;
 use App\Form\ArticleType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -145,10 +146,13 @@ class ArticleController extends AbstractController
      * @param Article $article
      * @return Response
      */
-    public function showArticle(Article $article): Response
+    public function showArticle(Article $article, EntityManagerInterface $entityManager): Response
     {
+        $commentaries = $entityManager->getRepository(Commentary::class)->findBy([ 'article' => $article->getId() ]);
+
         return $this->render('article/show_article.html.twig', [
             'article' => $article,
+            'commentaries' => $commentaries,
         ]);
     }
 
