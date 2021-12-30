@@ -53,7 +53,7 @@ class Article
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $deleteAt;
+    private $deletedAt;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
@@ -161,14 +161,14 @@ class Article
         return $this;
     }
 
-    public function getDeleteAt(): ?\DateTimeInterface
+    public function getDeletedAt(): ?\DateTimeInterface
     {
-        return $this->deleteAt;
+        return $this->deletedAt;
     }
 
-    public function setDeleteAt(?\DateTimeInterface $deleteAt): self
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
-        $this->deleteAt = $deleteAt;
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

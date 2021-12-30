@@ -173,13 +173,13 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/admin/delete/{id}", name="soft_delete_article", methods={"GET"})
+     * @Route("/admin/delete/article/{id}", name="soft_delete_article", methods={"GET"})
      * @param Article $article
      * @return Response
      */
     public function softDeleteArticle(Article $article, EntityManagerInterface $entityManager): Response
     {
-        $article->setDeleteAt(new DateTime());
+        $article->setDeletedAt(new DateTime());
 
         $entityManager->persist($article);
 

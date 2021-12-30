@@ -17,7 +17,7 @@ class DefaultController extends AbstractController
      */
     public function home(EntityManagerInterface $entityManager)
     {
-        $articles = $entityManager->getRepository(Article::class)->findAll();
+        $articles = $entityManager->getRepository(Article::class)->findBy(['deletedAt' => null]);
 
         return $this->render('default/home.html.twig', [
             'articles' => $articles
@@ -29,7 +29,7 @@ class DefaultController extends AbstractController
      */
     public function renderHeaderCategories(EntityManagerInterface $entityManager): Response
     {
-        $categories = $entityManager->getRepository(Category::class)->findAll();
+        $categories = $entityManager->getRepository(Category::class)->findBy(['deletedAt' => null]);
 
         return $this->render('rendered/nav_categories.html.twig', [
             'categories' => $categories,
@@ -41,7 +41,7 @@ class DefaultController extends AbstractController
      */
     public function renderFooterCategories(EntityManagerInterface $entityManager): Response
     {
-        $categories = $entityManager->getRepository(Category::class)->findAll();
+        $categories = $entityManager->getRepository(Category::class)->findBy(['deletedAt' => null]);
 
         return $this->render('rendered/footer_categories.html.twig', [
             'categories' => $categories,

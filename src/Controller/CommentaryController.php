@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Commentary;
 use App\Form\CommentaryType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,5 +45,23 @@ class CommentaryController extends AbstractController
         return $this->render('rendered/form_commentary.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/delete/commentary/{id}", name="soft_delete_commentary", methods={"GET"})
+     * @param Commentary $commentary
+     * @return Response
+     */
+    public function softDeleteCommentary(Commentary $commentary, EntityManagerInterface $entityManager): Response
+    {
+        $commentary->setDeletedAt(new DateTime());
+
+        $entityManager->persist($commentary);
+
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Vous avez bien archivé le commentaire !');
+
+        return $this->redirectToRoute('show_dashboard');
     }
 }
