@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Entity\Commentary;
 use App\Form\ArticleType;
 use DateTime;
@@ -153,6 +154,20 @@ class ArticleController extends AbstractController
         return $this->render('article/show_article.html.twig', [
             'article' => $article,
             'commentaries' => $commentaries,
+        ]);
+    }
+
+    /**
+     * @Route("/show/article/{category}", name="show_article_from_category", methods={"GET"})
+     * @param Article $article
+     * @return Response
+     */
+    public function showArticleFromCategory(Category $category, EntityManagerInterface $entityManager): Response
+    {
+        $articles = $entityManager->getRepository(Article::class)->findBy([ 'category' => $category->getId() ]);
+
+        return $this->render('article/show_article.html.twig', [
+            'articles' => $articles,
         ]);
     }
 
