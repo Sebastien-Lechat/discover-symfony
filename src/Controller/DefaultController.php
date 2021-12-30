@@ -25,13 +25,25 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/render-categories", name="render_categories", methods={"GET"})
+     * @Route("/render-header-categories", name="render_header_categories", methods={"GET"})
      */
-    public function renderCategories(EntityManagerInterface $entityManager): Response
+    public function renderHeaderCategories(EntityManagerInterface $entityManager): Response
     {
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
         return $this->render('rendered/nav_categories.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @Route("/render-footer-categories", name="render_footer_categories", methods={"GET"})
+     */
+    public function renderFooterCategories(EntityManagerInterface $entityManager): Response
+    {
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        return $this->render('rendered/footer_categories.html.twig', [
             'categories' => $categories,
         ]);
     }   
