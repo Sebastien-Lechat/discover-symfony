@@ -19,7 +19,7 @@ class CommentaryType extends AbstractType
             ->add('comment', TextareaType::class, [
                 'label' => 'Commentaire',
                 'attr' => [
-                    'placeholder' => 'Entrez votre commentaire sur l\article'
+                    'placeholder' => 'Entrez votre commentaire sur l\'article'
                 ],
                 'constraints' => [
                     new NotBlank([

@@ -25,6 +25,20 @@ class CommentaryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $commentary = $form->getData();
+
+            $commentary->setAuthor($this->getUser());
+
+            $commentary->setArticle($article);
+
+            $entityManager->persist($commentary);
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vous avez créé un nouveau commentaire !');
+
+            return $this->redirectToRoute('show_article', [ 'id' => $article->getId() ]);
         }
 
         return $this->render('rendered/form_commentary.html.twig', [

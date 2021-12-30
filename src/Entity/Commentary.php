@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentaryRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,7 +27,7 @@ class Commentary
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaries")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $athor;
+    private $author;
 
     /**
      * @ORM\Column(type="datetime")
@@ -49,6 +50,12 @@ class Commentary
      */
     private $article;
 
+    # Constructeur de la classe
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -66,14 +73,14 @@ class Commentary
         return $this;
     }
 
-    public function getAthor(): ?User
+    public function getAuthor(): ?User
     {
-        return $this->athor;
+        return $this->author;
     }
 
-    public function setAthor(?User $athor): self
+    public function setAuthor(?User $author): self
     {
-        $this->athor = $athor;
+        $this->author = $author;
 
         return $this;
     }
