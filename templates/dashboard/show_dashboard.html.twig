@@ -77,7 +77,7 @@
 									<i class="fa fa-edit"></i>
 								</a>
 								&nbsp;
-								<a href="#" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer l'article ?')">
+								<a href="{{ path('soft_delete_article', { 'id': article.id }) }}" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer l'article ?')">
 									<i class="fa fa-trash"></i>
 								</a>
 							</td>

@@ -12,7 +12,7 @@
 						<img width="90%" src="{{ asset('uploads_dir/' ~article.photo) }}" alt="{{article.title}}" class="img-card-custom rounded shadow">
 					</div>
 					<div class="col-8">
-						<a href="{{ path('show_article', { 'id': article.id } ) }}" class="text-decoration-none text-dark">
+						<a href="{{ path('show_article', { 'cat_alias': article.category.alias, 'art_alias': article.alias }) }}" class="text-decoration-none text-dark">
 							<h3>{{ article.title }}</h3>
 						</a>
 						<p>{{ article.subtitle }}</p>
